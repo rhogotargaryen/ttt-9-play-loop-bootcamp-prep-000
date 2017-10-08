@@ -11,12 +11,14 @@ def input_to_index(user_input)
   user_input.to_i - 1
 end
 
-def move(board, index, current_player = "X")
-  board[index] = current_player
+def move(board, index)
+  board[index] = $current_player
+  toggle_player
+  $turn_counter += 1
 end
 
-def position_taken?(board, location)
-  board[location] != " " && board[location] != ""
+def position_taken?(board, index)
+  board[index] == "X" || board[index] == "O"
 end
 
 def valid_move?(board, index)
@@ -25,24 +27,40 @@ end
 
 
 def turn(board)
-  current_player = "X"
   puts "Please enter 1-9:"
   input = gets.strip
   index = input_to_index(input)
-  if valid_move?(board, index)
+    if valid_move?(board, index)
     move(board, index)
     display_board(board)
-  else
+    else
     turn(board)
-  end
-
+    end
 end
+
+  $turn_counter = 0
 
 # Define your play method below
 def play(board)
-  turn_counter = 0
-  while turn_counter < 9
+  while $turn_counter < 9
     turn(board)
-    turn_counter += 1
+  end
+  while $turn_counter >=9
+    puts "Gameboard Full, play again? (y/n)"
+    ans = gets.strip
+    if ans == "y"
+    board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    play(board)
+    else
+      break
+    end
+  end
+end
+
+def toggle_player
+  if $current_player == "X"
+    $current_player = "O"
+  elsif $current_player == "O"
+    $current_player = "X"
   end
 end
