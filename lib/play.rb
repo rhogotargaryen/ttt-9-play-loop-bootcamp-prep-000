@@ -45,7 +45,7 @@ def play(board)
   while $turn_counter < 9
     turn(board)
   end
-  while $turn_counter >9
+  while $turn_counter > 9
     puts "Gameboard Full, play again? (y/n)"
     ans = gets.strip
     if ans == "y"
