@@ -48,6 +48,7 @@ def play(board)
   while $turn_counter = 9
     puts "Gameboard Full, play again? (y/n)"
     ans = gets.strip
+    $turn_counter += 1
     if ans == "y"
     board = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
     $turn_counter = 0
